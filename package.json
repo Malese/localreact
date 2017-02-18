@@ -2,18 +2,20 @@
   "name": "localreact",
   "version": "0.0.1",
   "description": "A react playground",
-  "main": "index.html",
+  "main": "client/index.js",
   "repository": "git@github.com:Malese/localreact.git",
   "author": "martin Lekvall <lekvall@gmail.com>",
   "license": "The Unlicense",
   "scripts": {
     "start": "webpack-dev-server",
-    "test": "installed-check -e && eslint --ext .js --ext .jsx ."
+    "dependency-check": "dependency-check ./package.json -e js,jsx && dependency-check ./package.json --unused --no-dev",
+    "test": "installed-check -e && eslint --ext .js --ext .jsx . && npm run dependency-check"
   },
   "engines": {
     "node": ">=6.0.0"
   },
   "dependencies": {
+    "dependency-check": "^2.8.0",
     "html-webpack-plugin": "^2.28.0",
     "installed-check": "^2.1.1",
     "path": "^0.12.7",
