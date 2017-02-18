@@ -1,0 +1,9 @@
+{
+  "name": "localreact",
+  "version": "0.0.1",
+  "description": "A react playground",
+  "main": "index.html",
+  "repository": "git@github.com:Malese/localreact.git",
+  "author": "martin Lekvall <lekvall@gmail.com>",
+  "license": "The unlicence"
+}
