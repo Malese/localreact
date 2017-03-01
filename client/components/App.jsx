@@ -1,6 +1,8 @@
-import React from 'react';
+'use strict';
 
-export default class App extends React.Component {
+var React = require('react');
+
+const App = React.createClass({
   render () {
     return (
       <div style={{display: 'flex'}}>
@@ -8,4 +10,6 @@ export default class App extends React.Component {
       </div>
     );
   }
-}
+});
+
+module.exports = App;
