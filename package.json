@@ -1,7 +1,7 @@
 {
   "name": "localreact",
   "version": "0.0.1",
-  "description": "A react playground",
+  "description": "A react playground https://scotch.io/tutorials/setup-a-react-environment-using-webpack-and-babel",
   "main": "client/index.js",
   "repository": "git@github.com:Malese/localreact.git",
   "author": "martin Lekvall <lekvall@gmail.com>",
@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "sw-precache": "^5.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
