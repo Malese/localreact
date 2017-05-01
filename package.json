@@ -2,38 +2,45 @@
   "name": "localreact",
   "version": "0.0.1",
   "description": "A react playground https://scotch.io/tutorials/setup-a-react-environment-using-webpack-and-babel",
-  "main": "client/index.js",
+  "main": "sources/index.jsx",
   "repository": "git@github.com:Malese/localreact.git",
   "author": "martin Lekvall <lekvall@gmail.com>",
   "license": "The Unlicense",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "http-server client",
     "dependency-check": "dependency-check ./package.json -e js,jsx --detective detective-cjs && dependency-check ./package.json -e js,jsx --detective detective-cjs --unused --no-dev",
-    "test": "installed-check -e && eslint --ext .js --ext .jsx . && npm run dependency-check"
+    "test": "installed-check -e && eslint --ext .js --ext .jsx . && npm run dependency-check",
+    "build-js": "NODE_ENV=production browserify -t babelify sources/index.jsx -t [ envify --NODE_ENV production ] -p bundle-collapser/plugin -g uglifyify | uglifyjs -m -o client/js/main.min.js",
+    "watch-js": "NODE_ENV=development watchify -t [ envify --NODE_ENV development ] -t babelify sources/index.jsx --debug -p bundle-collapser/plugin -o client/js/main.js -v"
   },
   "engines": {
     "node": ">=6.0.0"
   },
   "dependencies": {
+    "babelify": "^7.3.0",
+    "browserify": "^14.1.0",
+    "bundle-collapser": "^1.2.1",
+    "envify": "^4.0.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "sw-precache": "^5.0.0"
+    "sw-precache": "^5.0.0",
+    "uglifyify": "^3.0.4",
+    "uglifyjs": "^2.4.10",
+    "watchify": "^3.9.0"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
-    "babel-loader": "^6.3.2",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.23.0",
     "dependency-check": "^2.8.0",
     "detective-cjs": "^2.0.0",
     "eslint": "^3.15.0",
-    "eslint-config-semistandard": "^7.0.0",
-    "eslint-config-standard": "^6.2.1",
-    "eslint-config-standard-react": "^4.2.0",
+    "eslint-config-semistandard": "^8.0.0",
+    "eslint-config-standard": "^7.1.0",
+    "eslint-config-standard-react": "^4.3.0",
     "eslint-plugin-promise": "^3.4.2",
-    "eslint-plugin-react": "^6.10.0",
+    "eslint-plugin-react": "^6.10.3",
     "eslint-plugin-standard": "^2.0.1",
-    "html-webpack-plugin": "^2.28.0",
     "installed-check": "^2.1.1"
   }
 }
