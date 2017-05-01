@@ -6,7 +6,7 @@ const App = React.createClass({
   render () {
     return (
       <div style={{display: 'flex'}}>
-        <h1>Yolo</h1>
+        <h1>Yolo {process.env.NODE_ENV}</h1>
       </div>
     );
   }
