@@ -1,0 +1,7 @@
+{
+  "background_color": "#ffffff",
+  "theme_color": "#f14682",
+  "name": "React & PWA Playground",
+  "short_name": "RPP",
+  "display": "standalone"
+}
