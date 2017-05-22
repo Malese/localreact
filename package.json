@@ -9,13 +9,14 @@
   "scripts": {
     "start": "http-server -c-1 client",
     "dependency-check": "dependency-check ./package.json -e js,jsx --detective detective-cjs && dependency-check ./package.json -e js,jsx --detective detective-cjs --unused --no-dev",
-    "test": "installed-check -e && eslint --ext .js --ext .jsx . && npm run dependency-check",
+    "test": "concurrently -r 'installed-check -e' 'eslint --ext .js --ext .jsx .' 'npm run dependency-check'",
     "watch-js": "NODE_ENV=development watchify -t [ envify --NODE_ENV development ] -t babelify sources/js/index.jsx --debug -p bundle-collapser/plugin -o client/js/main.js -v",
     "build-js": "NODE_ENV=production browserify -t babelify sources/js/index.jsx -t [ envify --NODE_ENV production ] -p bundle-collapser/plugin -g uglifyify | uglifyjs -m -o client/js/main.min.js",
     "build-sw-registrator": "NODE_ENV=production browserify -t babelify sources/js/service-worker-registration.js -t [ envify --NODE_ENV production ] -p bundle-collapser/plugin -g uglifyify | uglifyjs -m -o client/js/sw-registration.min.js",
     "build-sw": "sw-precache --file-path='client/' --root='client/' --static-file-globs='client/**/!(*map*)' --strip-prefix='client/'",
     "manifest": "cp sources/manifest.json client/",
-    "build": "npm run build-js && npm run build-sw && npm run build-sw-registrator && npm run manifest"
+    "build": "concurrently -r 'npm run build-js' 'npm run build-sw' 'npm run build-sw-registrator' 'npm run manifest'",
+    "watch": "concurrently -r --kill-others 'npm run watch-js' 'npm run build-sw' 'npm run build-sw-registrator' 'npm run manifest' 'npm run start'"
   },
   "engines": {
     "node": ">=6.0.0"
