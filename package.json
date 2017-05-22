@@ -5,7 +5,7 @@
   "main": "sources/js/index.jsx",
   "repository": "git@github.com:Malese/localreact.git",
   "author": "martin Lekvall <lekvall@gmail.com>",
-  "license": "The Unlicense",
+  "license": "UNLICENSED",
   "scripts": {
     "start": "http-server -c-1 client",
     "dependency-check": "dependency-check ./package.json -e js,jsx --detective detective-cjs && dependency-check ./package.json -e js,jsx --detective detective-cjs --unused --no-dev",
