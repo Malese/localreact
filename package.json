@@ -7,16 +7,18 @@
   "author": "martin Lekvall <lekvall@gmail.com>",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "http-server -c-1 client",
+    "start": "npm run build && npm run server",
+    "start-dev": "npm run watch && npm run server",
+    "server": "http-server -c-1 client",
     "dependency-check": "dependency-check ./package.json -e js,jsx --detective detective-cjs && dependency-check ./package.json -e js,jsx --detective detective-cjs --unused --no-dev",
     "test": "concurrently -r 'installed-check -e' 'eslint --ext .js --ext .jsx .' 'npm run dependency-check'",
-    "watch-js": "NODE_ENV=development watchify -t [ envify --NODE_ENV development ] -t babelify sources/js/index.jsx --debug -p bundle-collapser/plugin -o client/js/main.js -v",
-    "build-js": "NODE_ENV=production browserify -t babelify sources/js/index.jsx -t [ envify --NODE_ENV production ] -p bundle-collapser/plugin -g uglifyify | uglifyjs -m -o client/js/main.min.js",
+    "watch-js": "watchify sources/js/index.jsx --debug -t babelify -t [ envify --NODE_ENV development ] -o client/js/main.min.js -v",
+    "build-js": "NODE_ENV=production browserify sources/js/index.jsx -t babelify -t [ envify --NODE_ENV production ] -p bundle-collapser/plugin -g uglifyify | uglifyjs -m -o client/js/main.min.js",
     "build-sw-registrator": "NODE_ENV=production browserify -t babelify sources/js/service-worker-registration.js -t [ envify --NODE_ENV production ] -p bundle-collapser/plugin -g uglifyify | uglifyjs -m -o client/js/sw-registration.min.js",
     "build-sw": "sw-precache --file-path='client/' --root='client/' --static-file-globs='client/**/!(*map*)' --strip-prefix='client/'",
     "manifest": "cp sources/manifest.json client/",
     "build": "concurrently -r 'npm run build-js' 'npm run build-sw' 'npm run build-sw-registrator' 'npm run manifest'",
-    "watch": "concurrently -r --kill-others 'npm run watch-js' 'npm run build-sw' 'npm run build-sw-registrator' 'npm run manifest' 'npm run start'"
+    "watch": "npm run manifest && npm run build-sw && npm run build-sw-registrator && npm run watch-js"
   },
   "engines": {
     "node": ">=6.0.0"
@@ -32,6 +34,7 @@
     "babelify": "^7.3.0",
     "browserify": "^14.3.0",
     "bundle-collapser": "^1.2.1",
+    "concurrently": "^3.5.0",
     "dependency-check": "^2.8.0",
     "detective-cjs": "^2.0.0",
     "envify": "^4.0.0",

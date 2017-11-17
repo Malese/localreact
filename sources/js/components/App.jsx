@@ -1,15 +1,15 @@
 'use strict';
 
-var React = require('react');
+const React = require('react');
 
-const App = React.createClass({
+class App extends React.Component {
   render () {
     return (
-      <div style={{display: 'flex'}}>
-        <h1>Yolo {process.env.NODE_ENV}</h1>
+      <div>
+        <h1>Yolo</h1>
       </div>
     );
   }
-});
+}
 
 module.exports = App;
