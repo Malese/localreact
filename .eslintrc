@@ -1,4 +1,18 @@
 {
-  "extends": "semistandard",
-  "root": true
+  "root": true,
+  "extends": [
+    "semistandard",
+    "standard-react",
+    "plugin:react/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
+  "plugins": [
+    "react"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  }
 }
