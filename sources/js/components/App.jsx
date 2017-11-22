@@ -2,7 +2,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import List from './List.jsx';
+
+import ListHandler from './ListHandler.jsx';
 
 class App extends React.Component {
   render () {
@@ -15,7 +16,7 @@ class App extends React.Component {
       ]
     };
 
-    return <List data={data} />;
+    return <ListHandler data={data} />;
   }
 }
 

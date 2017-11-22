@@ -5,26 +5,21 @@ import PropTypes from 'prop-types';
 
 export default class List extends React.Component {
   render () {
+    const result = this.props.parser(this.props.data);
+
     return (
-      <div>
-        <h1>{this.props.data.school}</h1>
-        <ul>
-          {
-            this.props.data.week.map((day, i) => {
-              return <li key={i}>{day}</li>;
-            })
-          }
-        </ul>
-      </div>
+      <ul>
+        {
+          result.map((item, i) => {
+            return <li key={i}>{item}</li>;
+          })
+        }
+      </ul>
     );
   }
 }
 
 List.propTypes = {
-  data: PropTypes.shape({
-    school: PropTypes.string.isRequired,
-    week: PropTypes.array.isRequired
-  })
+  data: PropTypes.object.isRequired,
+  parser: PropTypes.func.isRequired
 };
-
-// module.exports = List;

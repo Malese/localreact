@@ -10,7 +10,7 @@
     "start": "npm run build && npm run server",
     "start-dev": "npm run watch && npm run server",
     "server": "http-server -c-1 client",
-    "dep-check": "depcheck --specials=bin,eslint,babel --ignore-bin-package=true --ignores=babel-core,babelify,uglifyify,uglifyjs,eslint-config-plugin:react,eslint-config-plugin:import,_process,fbjs,object-assign",
+    "dep-check": "depcheck --specials=bin,eslint,babel --ignore-bin-package=true --ignores=babel-core,babelify,uglifyify,uglifyjs,eslint-config-plugin:react,eslint-config-plugin:import,_process,fbjs,object-assign,is-buffer",
     "test": "concurrently -r 'installed-check -e' 'eslint --ext .js --ext .jsx .' 'npm run dep-check'",
     "watch-js": "watchify sources/js/index.jsx --debug -t babelify -t [ envify --NODE_ENV development ] -o client/js/main.min.js -v",
     "build-js": "NODE_ENV=production browserify sources/js/index.jsx -t babelify -t [ envify --NODE_ENV production ] -p bundle-collapser/plugin -g uglifyify | uglifyjs -m -o client/js/main.min.js",
@@ -18,12 +18,13 @@
     "build-sw": "sw-precache --file-path='client/' --root='client/' --static-file-globs='client/**/!(*map*)' --strip-prefix='client/'",
     "manifest": "cp sources/manifest.json client/",
     "build": "concurrently -r 'npm run build-js' 'npm run build-sw' 'npm run build-sw-registrator' 'npm run manifest'",
-    "watch": "npm run manifest && npm run build-sw && npm run build-sw-registrator && npm run watch-js"
+    "watch": "npm run -s manifest && npm run -s build-sw && npm run -s build-sw-registrator && npm run -s watch-js"
   },
   "engines": {
     "node": ">=6.0.0"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "prop-types": "^15.6.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1"
